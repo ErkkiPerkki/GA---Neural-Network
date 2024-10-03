@@ -1,0 +1,7 @@
+C:\Users\TE22ERILUN\Desktop\Gymanise Arbete\GA - Neural Network\bin\Debug\GA - Neural Network.exe.config
+C:\Users\TE22ERILUN\Desktop\Gymanise Arbete\GA - Neural Network\bin\Debug\GA - Neural Network.exe
+C:\Users\TE22ERILUN\Desktop\Gymanise Arbete\GA - Neural Network\bin\Debug\GA - Neural Network.pdb
+C:\Users\TE22ERILUN\Desktop\Gymanise Arbete\GA - Neural Network\obj\Debug\GA - Neural Network.csproj.AssemblyReference.cache
+C:\Users\TE22ERILUN\Desktop\Gymanise Arbete\GA - Neural Network\obj\Debug\GA - Neural Network.csproj.CoreCompileInputs.cache
+C:\Users\TE22ERILUN\Desktop\Gymanise Arbete\GA - Neural Network\obj\Debug\GA - Neural Network.exe
+C:\Users\TE22ERILUN\Desktop\Gymanise Arbete\GA - Neural Network\obj\Debug\GA - Neural Network.pdb

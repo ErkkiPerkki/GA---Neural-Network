@@ -8,8 +8,9 @@ namespace NeuralNetwork
 
         static void Main()
         {
-            Neuron tomte = new Neuron();
-            tomte.Value
+            Network test = new Network(4, 8, 6, 2);
+
+            Console.ReadKey();
         }
     }
 }
