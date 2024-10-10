@@ -8,7 +8,7 @@ namespace NeuralNetwork
 
         static void Main()
         {
-            Network test = new Network(4, 8, 6, 2);
+            Network test = new Network(4, 8, 6, 2, 4);
             test.ToString();
 
             Console.ReadKey();

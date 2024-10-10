@@ -27,16 +27,33 @@ namespace NeuralNetwork
             }
         }
 
+        public uint GetBiggestLayer()
+        {
+            uint biggest = 0;
+
+            for (uint i = 0; i < _Layers.Length; i++) {
+                if (_Layers[i].Length > biggest) biggest = (uint)_Layers[i].Length;
+            }
+
+            return biggest;
+        }
+
         public override string ToString()
         {
-            for (uint i = 0; i < _Layers.Length; i++) {
-                Console.SetCursorPosition((int)i * 6, 0);
+            uint biggestLayer = GetBiggestLayer();
+            uint center = biggestLayer / 2;
 
-                for (uint j = 0; j < _Layers[i].Length; j++)
-                {
+            Console.Clear();
+
+            for (uint i = 0; i < _Layers.Length; i++) {
+                int size = _Layers[i].Length;
+                int halfSize = size / 2;
+
+                for (int j = 0; j < size; j++) {
                     float value = _Layers[i][j];
-                    Console.Write(Math.Round(value, 2).ToString());
-                    Console.SetCursorPosition(0, (int)j);
+
+                    Console.SetCursorPosition((int)i * 12, (int)center - halfSize + j);
+                    Console.Write($"[{Math.Round(value, 2).ToString()}]");
                 } 
             }
 
