@@ -27,21 +27,22 @@ namespace NeuralNetwork
             }
         }
 
-        public uint GetBiggestLayer()
+        public uint GetLargestLayer()
         {
-            uint biggest = 0;
+            uint largest = 0;
 
             for (uint i = 0; i < _Layers.Length; i++) {
-                if (_Layers[i].Length > biggest) biggest = (uint)_Layers[i].Length;
+                if (_Layers[i].Length > largest)
+                    largest = (uint)_Layers[i].Length;
             }
 
-            return biggest;
+            return largest;
         }
 
         public override string ToString()
         {
-            uint biggestLayer = GetBiggestLayer();
-            uint center = biggestLayer / 2;
+            uint largestLayer = GetLargestLayer();
+            uint center = largestLayer / 2;
 
             Console.Clear();
 
@@ -68,6 +69,8 @@ namespace NeuralNetwork
         public void FeedForward(float[] inputs)
         {
             _Layers[1] = inputs;
+
+
         }
     }
 }
