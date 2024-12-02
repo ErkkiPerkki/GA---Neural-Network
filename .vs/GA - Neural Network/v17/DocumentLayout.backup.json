@@ -3,15 +3,15 @@
   "WorkspaceRootPath": "C:\\Users\\TE22ERILUN\\Desktop\\Gymanise Arbete\\GA - Neural Network\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{0A16206A-C323-45FD-9CFE-6381C2D74299}|GA - Neural Network.csproj|c:\\users\\te22erilun\\desktop\\gymanise arbete\\ga - neural network\\classes\\network.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0A16206A-C323-45FD-9CFE-6381C2D74299}|GA - Neural Network.csproj|solutionrelative:classes\\network.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{0A16206A-C323-45FD-9CFE-6381C2D74299}|GA - Neural Network.csproj|C:\\Users\\TE22ERILUN\\Desktop\\Gymanise Arbete\\GA - Neural Network\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{0A16206A-C323-45FD-9CFE-6381C2D74299}|GA - Neural Network.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0A16206A-C323-45FD-9CFE-6381C2D74299}|GA - Neural Network.csproj|c:\\users\\te22erilun\\desktop\\gymanise arbete\\ga - neural network\\classes\\layer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{0A16206A-C323-45FD-9CFE-6381C2D74299}|GA - Neural Network.csproj|c:\\users\\te22erilun\\desktop\\gymanise arbete\\ga - neural network\\classes\\network.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0A16206A-C323-45FD-9CFE-6381C2D74299}|GA - Neural Network.csproj|solutionrelative:classes\\network.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0A16206A-C323-45FD-9CFE-6381C2D74299}|GA - Neural Network.csproj|C:\\Users\\TE22ERILUN\\Desktop\\Gymanise Arbete\\GA - Neural Network\\classes\\layer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{0A16206A-C323-45FD-9CFE-6381C2D74299}|GA - Neural Network.csproj|solutionrelative:classes\\layer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -22,7 +22,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
@@ -38,26 +38,26 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\TE22ERILUN\\Desktop\\Gymanise Arbete\\GA - Neural Network\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
               "ToolTip": "C:\\Users\\TE22ERILUN\\Desktop\\Gymanise Arbete\\GA - Neural Network\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAaAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAPAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-01T10:19:39.238Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "Network.cs",
               "DocumentMoniker": "C:\\Users\\TE22ERILUN\\Desktop\\Gymanise Arbete\\GA - Neural Network\\Classes\\Network.cs",
               "RelativeDocumentMoniker": "Classes\\Network.cs",
               "ToolTip": "C:\\Users\\TE22ERILUN\\Desktop\\Gymanise Arbete\\GA - Neural Network\\Classes\\Network.cs",
               "RelativeToolTip": "Classes\\Network.cs",
-              "ViewState": "AgIAADwAAAAAAAAAAAAAAEcAAAAMAAAAAAAAAA==",
+              "ViewState": "AgIAAD4AAAAAAAAAAAAUwE0AAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-02T12:08:44.982Z",
               "EditorCaption": ""
@@ -70,10 +70,9 @@
               "RelativeDocumentMoniker": "Classes\\Layer.cs",
               "ToolTip": "C:\\Users\\TE22ERILUN\\Desktop\\Gymanise Arbete\\GA - Neural Network\\Classes\\Layer.cs",
               "RelativeToolTip": "Classes\\Layer.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAACIAAAAsAAAAAAAAAA==",
+              "ViewState": "AgIAABUAAAAAAAAAAAAAABcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-18T10:14:34.056Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-18T10:14:34.056Z"
             }
           ]
         }

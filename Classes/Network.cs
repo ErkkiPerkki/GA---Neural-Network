@@ -1,13 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace NeuralNetwork
 {
     public class Network
     {
         public Layer[] Layers {
-            get {return Layers;}
-            private set {Layers = value;}
+            get;
+            private set;
         }
 
         public Network(params uint[] layerSizes)
@@ -19,7 +18,7 @@ namespace NeuralNetwork
                 Layer layer = new Layer(layerSize);
 
                 for (uint j = 0; j < layerSize; j++) {
-                    layer.Neurons[j] = GetRandomFloat();
+                    layer.Neurons[j] = 1f;
                 }
 
                 Layers[i] = layer;
@@ -30,9 +29,9 @@ namespace NeuralNetwork
         {
             uint largest = 0;
 
-            for (uint i = 0; i < _Layers.Length; i++) {
-                if (_Layers[i].Size > largest)
-                    largest = (uint)_Layers[i].Size;
+            for (uint i = 0; i < Layers.Length; i++) {
+                if (Layers[i].Size > largest)
+                    largest = (uint)Layers[i].Size;
             }
 
             return largest;
@@ -45,12 +44,12 @@ namespace NeuralNetwork
 
             Console.Clear();
 
-            for (uint i = 0; i < _Layers.Length; i++) {
-                uint size = _Layers[i].Size;
+            for (uint i = 0; i < Layers.Length; i++) {
+                uint size = Layers[i].Size;
                 uint halfSize = size / 2;
 
                 for (uint j = 0; j < size; j++) {
-                    float value = _Layers[i].Neurons[j];
+                    float value = Layers[i].Neurons[j];
 
                     Console.SetCursorPosition((int)i * 12, (int)(center - halfSize + j));
                     Console.Write($"[{Math.Round(value, 2).ToString()}]");
@@ -60,15 +59,27 @@ namespace NeuralNetwork
             return "";
         }
 
-        public static float GetRandomFloat()
-        {
+        public static float GetRandomFloat() {
             return (float)Program.random.NextDouble();
         }
-            
-        public void FeedForward(float[] inputs)
-        {
-            
 
+        public static float Sigmoid(float x) {
+            return 1 / (1 + (float)Math.Pow(Math.E, -x));
+        }
+            
+        public float[] FeedForward(float[] inputs) {
+            uint outputLayerSize = Layers[Layers.Length-1].Size;
+            float[] outputs = new float[outputLayerSize];
+
+            for (uint i = 1; i < Layers.Length-1; i++) {
+                Layer currentLayer = Layers[i];
+                Layer nextLayer = Layers[i + 1];
+
+
+                Console.WriteLine($"a: {currentLayer.Size} b: {nextLayer.Size}");
+            }
+
+            return outputs;
         }
     }
 }
