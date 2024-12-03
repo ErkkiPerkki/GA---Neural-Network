@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 
 namespace NeuralNetwork
 {
@@ -8,11 +9,11 @@ namespace NeuralNetwork
         private uint _Columns;
         private float[][] _Elements;
 
-        public uint Rows { get; }
-        public uint Colums { get; }
-        public float[][] Elements { get; }
+        public uint Rows { get { return _Rows; } }
+        public uint Columns { get { return _Columns; } }
+        public float[][] Elements { get { return _Elements; } }
 
-        public Matrix(float[][] elements) {
+        public Matrix(float[][] elements) { 
             uint rows = (uint)elements.Length;
             uint columns = (uint)elements[0].Length;
 
@@ -21,15 +22,20 @@ namespace NeuralNetwork
             _Elements = elements;
         }
 
-        public Matrix Multiply(Matrix A, Matrix B) {
-            float[][] product = new float[A.Rows][];
+        public static Matrix operator *(Matrix left, Matrix right) {
+            if (left.Columns != right.Rows)
+                throw new Exception("Columns of matrix A must match the rows of matrix B");
 
-            for (uint i = 0; i < A.Rows; i++) {
-                for (uint j = 0; j < A.Rows; j++) {
+            float[][] product = new float[left.Rows][];
+
+            for (int i = 0; i < left.Rows; i++) {
+                product[i] = new float[right.Columns];
+
+                for (int j = 0; j < right.Columns; j++) {
                     float sum = 0;
-                    
-                    for (uint k = 0; k < A.Rows; k++) {
-                        sum += A.Elements[i][k] * B.Elements[k][j];
+
+                    for (int k = 0; k < left.Columns; k++) {
+                        sum += left.Elements[i][k] * right.Elements[k][j];
                     }
 
                     product[i][j] = sum;
@@ -38,6 +44,24 @@ namespace NeuralNetwork
 
             Matrix matrixProduct = new Matrix(product);
             return matrixProduct;
+        }
+
+        public override string ToString() {
+            string output = "";
+
+            for (uint row = 0; row < Rows; row++) {
+                output += "[";
+
+                for (uint column = 0; column < Columns; column++) {
+                    float element = Elements[row][column];
+
+                    output += $" {element} ";
+                }
+
+                output += "]\n";
+            }
+
+            return output;
         }
     }
 }

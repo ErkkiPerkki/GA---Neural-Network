@@ -4,24 +4,23 @@ namespace NeuralNetwork
 {
     public class Network
     {
-        public Layer[] Layers {
-            get;
-            private set;
-        }
+        private Layer[] _Layers;
+
+        public Layer[] Layers { get { return _Layers; } }
 
         public Network(params uint[] layerSizes)
         {
-            Layers = new Layer[layerSizes.Length];
+            _Layers = new Layer[layerSizes.Length];
 
             for (uint i = 0; i < layerSizes.Length; i++) {
                 uint layerSize = layerSizes[i];
                 Layer layer = new Layer(layerSize);
 
                 for (uint j = 0; j < layerSize; j++) {
-                    layer.Neurons[j] = 1f;
+                    layer.Neurons.Elements[j][0] = 1f;
                 }
 
-                Layers[i] = layer;
+                _Layers[i] = layer;
             }
         }
 
@@ -29,9 +28,9 @@ namespace NeuralNetwork
         {
             uint largest = 0;
 
-            for (uint i = 0; i < Layers.Length; i++) {
-                if (Layers[i].Size > largest)
-                    largest = (uint)Layers[i].Size;
+            for (uint i = 0; i < _Layers.Length; i++) {
+                if (_Layers[i].Size > largest)
+                    largest = (uint)_Layers[i].Size;
             }
 
             return largest;
@@ -44,12 +43,12 @@ namespace NeuralNetwork
 
             Console.Clear();
 
-            for (uint i = 0; i < Layers.Length; i++) {
-                uint size = Layers[i].Size;
+            for (uint i = 0; i < _Layers.Length; i++) {
+                uint size = _Layers[i].Size;
                 uint halfSize = size / 2;
 
                 for (uint j = 0; j < size; j++) {
-                    float value = Layers[i].Neurons[j];
+                    float value = _Layers[i].Neurons.Elements[j][0];
 
                     Console.SetCursorPosition((int)i * 12, (int)(center - halfSize + j));
                     Console.Write($"[{Math.Round(value, 2).ToString()}]");
@@ -68,15 +67,15 @@ namespace NeuralNetwork
         }
             
         public float[] FeedForward(float[] inputs) {
-            uint outputLayerSize = Layers[Layers.Length-1].Size;
+            uint outputLayerSize = _Layers[_Layers.Length-1].Size;
             float[] outputs = new float[outputLayerSize];
 
-            for (uint i = 1; i < Layers.Length-1; i++) {
-                Layer currentLayer = Layers[i];
-                Layer nextLayer = Layers[i + 1];
+            for (uint i = 1; i < _Layers.Length-1; i++) {
+                Layer currentLayer = _Layers[i];
+                Layer nextLayer = _Layers[i + 1];
 
 
-                Console.WriteLine($"a: {currentLayer.Size} b: {nextLayer.Size}");
+                //Console.WriteLine($"a: {currentLayer.Size} b: {nextLayer.Size}");
             }
 
             return outputs;
