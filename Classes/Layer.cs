@@ -30,8 +30,8 @@
         {
             _Size = size;
 
-            _Neurons = new Matrix(new float[size][]);
-            _Biases = new Matrix(new float[size][]);
+            _Neurons = new Matrix(new float[size]);
+            _Biases = new Matrix(new float[size]);
         }
 
         public void ConnectLayer(Layer nextLayer) {
