@@ -34,10 +34,9 @@
             _Biases = new Matrix(new float[size]);
         }
 
-        public void ConnectLayer(Layer nextLayer) {
-            uint amountOfWeights = Size * nextLayer.Size;
-            
-            _Weights = new Matrix(new float[amountOfWeights][]);
+        public void ConnectLayer(Layer nextLayer) {            
+            _Weights = new Matrix(nextLayer._Size, _Size);
+            _Weights.PopulateWithRandom();
         }
     }
 }

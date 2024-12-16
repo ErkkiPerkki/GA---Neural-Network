@@ -20,6 +20,10 @@ namespace NeuralNetwork
                     layer.Neurons.Elements[j][0] = 1f;
                 }
 
+                if (i > 0) {
+                    _Layers[i - 1].ConnectLayer(layer);
+                }
+
                 _Layers[i] = layer;
             }
         }
@@ -51,34 +55,31 @@ namespace NeuralNetwork
                     float value = _Layers[i].Neurons.Elements[j][0];
 
                     Console.SetCursorPosition((int)i * 12, (int)(center - halfSize + j));
-                    Console.Write($"[{Math.Round(value, 2).ToString()}]");
+                    Console.Write($"[{Math.Round(value, 2).ToString("0.00")}]");
                 } 
             }
 
-            return "";
-        }
+            Console.SetCursorPosition(0, (int)largestLayer+1);
 
-        public static float GetRandomFloat() {
-            return (float)Program.random.NextDouble();
+            return "";
         }
 
         public static float Sigmoid(float x) {
             return 1 / (1 + (float)Math.Pow(Math.E, -x));
         }
             
-        public float[] FeedForward(float[] inputs) {
+        public Matrix FeedForward(float[] inputs) {
             uint outputLayerSize = _Layers[_Layers.Length-1].Size;
             float[] outputs = new float[outputLayerSize];
 
-            for (uint i = 1; i < _Layers.Length-1; i++) {
+            for (uint i = 0; i < _Layers.Length-1; i++) {
                 Layer currentLayer = _Layers[i];
                 Layer nextLayer = _Layers[i + 1];
 
-
-                //Console.WriteLine($"a: {currentLayer.Size} b: {nextLayer.Size}");
+                nextLayer.Neurons = currentLayer.Weights * currentLayer.Neurons + nextLayer.Biases;
             }
 
-            return outputs;
+            return new Matrix(_Layers[_Layers.Length-1].Neurons.Elements);
         }
     }
 }

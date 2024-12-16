@@ -1,6 +1,4 @@
 ﻿using System;
-using System.ComponentModel.Design;
-using System.Data;
 
 namespace NeuralNetwork
 {
@@ -15,13 +13,6 @@ namespace NeuralNetwork
         public float[][] Elements { get { return _Elements; } }
 
         public Matrix(float[][] elements) {
-            Console.Clear();
-            Console.WriteLine(elements[0]);
-            foreach (float[] array in elements) {
-                foreach(float value in array) {
-                    Console.WriteLine(value);
-                }
-            }
             uint rows = (uint)elements.Length;
             uint columns = (uint)elements[0].Length;
 
@@ -44,19 +35,35 @@ namespace NeuralNetwork
             _Elements = matrixElements;
         }
 
+        public Matrix(uint rows, uint columns) {
+            float[][] elements = new float[rows][];
+
+            for (uint i = 0; i < rows; i++) {
+                elements[i] = new float[columns];
+
+                for (uint j = 0; j < columns; j++) {
+                    elements[i][j] = 0;
+                }
+            }
+
+            _Rows = rows;
+            _Columns = columns;
+            _Elements = elements;
+        }
+
         public static Matrix operator *(Matrix left, Matrix right) {
             if (left.Columns != right.Rows)
                 throw new Exception("Columns of matrix A must match the rows of matrix B");
 
             float[][] product = new float[left.Rows][];
 
-            for (int i = 0; i < left.Rows; i++) {
+            for (uint i = 0; i < left.Rows; i++) {
                 product[i] = new float[right.Columns];
 
-                for (int j = 0; j < right.Columns; j++) {
+                for (uint j = 0; j < right.Columns; j++) {
                     float sum = 0;
 
-                    for (int k = 0; k < left.Columns; k++) {
+                    for (uint k = 0; k < left.Columns; k++) {
                         sum += left.Elements[i][k] * right.Elements[k][j];
                     }
 
@@ -66,6 +73,42 @@ namespace NeuralNetwork
 
             Matrix matrixProduct = new Matrix(product);
             return matrixProduct;
+        }
+
+        public static Matrix operator +(Matrix left, Matrix right) {
+            if (left.Columns != right.Columns || right.Rows != left.Rows)
+                throw new Exception("Matrix a must be the same size as Matrix b");
+
+            float[][] sum = new float[left.Rows][];
+
+            for (uint i = 0; i < left.Rows; i++) {
+                sum[i] = new float[left.Columns];
+
+                for (uint j = 0; j < left.Columns; j++) {
+                    sum[i][j] = left.Elements[i][j] + right.Elements[i][j];
+                }
+            }
+
+            Matrix matrixSum = new Matrix(sum);
+            return matrixSum;
+        }
+
+        public static Matrix operator -(Matrix left, Matrix right) {
+            if (left.Columns != right.Columns || right.Rows != left.Rows)
+                throw new Exception("Matrix a must be the same size as Matrix b");
+
+            float[][] sum = new float[left.Rows][];
+
+            for (uint i = 0; i < left.Rows; i++) {
+                sum[i] = new float[left.Columns];
+
+                for (uint j = 0; j < left.Columns; j++) {
+                    sum[i][j] = left.Elements[i][j] - right.Elements[i][j];
+                }
+            }
+
+            Matrix matrixSum = new Matrix(sum);
+            return matrixSum;
         }
 
         public override string ToString() {
@@ -84,6 +127,14 @@ namespace NeuralNetwork
             }
 
             return output;
+        }
+
+        public void PopulateWithRandom() {
+            for (uint i = 0; i < _Rows; i++) {
+                for (uint j = 0; j < _Columns; j++) {
+                    _Elements[i][j] = Utility.GetRandomFloat();
+                }
+            }
         }
     }
 }
