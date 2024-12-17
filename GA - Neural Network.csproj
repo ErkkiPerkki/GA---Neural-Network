@@ -46,6 +46,7 @@
     <Compile Include="Classes\Layer.cs" />
     <Compile Include="Classes\Matrix.cs" />
     <Compile Include="Classes\Network.cs" />
+    <Compile Include="Classes\TrainingData.cs" />
     <Compile Include="Classes\Utility.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

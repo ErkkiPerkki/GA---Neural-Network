@@ -16,13 +16,13 @@ namespace NeuralNetwork
             testNetwork.ToString();
 
             while (true) {
-                Matrix inputs = new Matrix(2, 1);
+                Matrix inputs = new Matrix(2, 1);   
                 inputs.PopulateWithRandom();
 
                 Matrix output = testNetwork.FeedForward(inputs);
                 testNetwork.ToString();
 
-                Thread.Sleep(10);
+                //Thread.Sleep(10);
             }
             
             //Matrix a = new Matrix(new float[][] { new float[] { 1f, 1f}, new float[] { 1f, 1f} });

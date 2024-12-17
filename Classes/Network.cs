@@ -41,7 +41,8 @@ namespace NeuralNetwork
             uint largestLayer = GetLargestLayer();
             uint center = largestLayer / 2;
 
-            Console.Clear();
+            //Console.Clear();
+            Console.CursorVisible = false;
 
             for (uint i = 0; i < _Layers.Length; i++) {
                 uint size = _Layers[i].Size;
@@ -55,13 +56,14 @@ namespace NeuralNetwork
                     Console.ForegroundColor = color;
 
                     Console.SetCursorPosition((int)i * 12, (int)(center - halfSize + j));
-                    Console.Write($"[{Math.Round(value, 2).ToString("0.00")}]");
+                    Console.Write($"[{Math.Round(value, 2).ToString("0.00")}]    ");
 
                     Console.ForegroundColor = previousColor;
                 }
             }
 
             Console.SetCursorPosition(0, (int)largestLayer + 1);
+            Console.CursorVisible = true;
 
             return "";
         }
