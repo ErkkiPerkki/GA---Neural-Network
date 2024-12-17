@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 
 namespace NeuralNetwork
 {
@@ -11,13 +12,19 @@ namespace NeuralNetwork
             customCulture.NumberFormat.NumberDecimalSeparator = ".";
             System.Threading.Thread.CurrentThread.CurrentCulture = customCulture;
 
-            Network test = new Network(4, 8, 6, 2, 4);
-            test.ToString();
+            Network testNetwork = new Network(2, 8, 12, 6, 4);
+            testNetwork.ToString();
 
-            Matrix output = test.FeedForward(new float[4]{1f, 1f, 1f, 1f });
-            Console.WriteLine(output);
-            test.ToString();
+            while (true) {
+                Matrix inputs = new Matrix(2, 1);
+                inputs.PopulateWithRandom();
 
+                Matrix output = testNetwork.FeedForward(inputs);
+                testNetwork.ToString();
+
+                Thread.Sleep(10);
+            }
+            
             //Matrix a = new Matrix(new float[][] { new float[] { 1f, 1f}, new float[] { 1f, 1f} });
             //Matrix b = new Matrix(new float[][] { new float[] { 2f, 3f}, new float[] { 2f, 3f} });
             //Matrix c = a + b;

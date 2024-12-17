@@ -120,7 +120,7 @@ namespace NeuralNetwork
                 for (uint column = 0; column < Columns; column++) {
                     float element = Elements[row][column];
 
-                    output += $" {element} ";
+                    output += $" {element.ToString("0.00")} ";
                 }
 
                 output += "]\n";
@@ -129,10 +129,12 @@ namespace NeuralNetwork
             return output;
         }
 
-        public void PopulateWithRandom() {
+        public void PopulateWithRandom(float min = 0, float max = 1) {
+            float diff = max - min;
+
             for (uint i = 0; i < _Rows; i++) {
                 for (uint j = 0; j < _Columns; j++) {
-                    _Elements[i][j] = Utility.GetRandomFloat();
+                    _Elements[i][j] = min + (Utility.GetRandomFloat() * diff);
                 }
             }
         }

@@ -30,13 +30,16 @@
         {
             _Size = size;
 
-            _Neurons = new Matrix(new float[size]);
-            _Biases = new Matrix(new float[size]);
+            Matrix biases = new Matrix(size, 1);
+            biases.PopulateWithRandom(-1, 1);
+
+            _Neurons = new Matrix(size, 1);
+            _Biases = biases;
         }
 
         public void ConnectLayer(Layer nextLayer) {            
             _Weights = new Matrix(nextLayer._Size, _Size);
-            _Weights.PopulateWithRandom();
+            _Weights.PopulateWithRandom(-1, 1);
         }
     }
 }

@@ -3,7 +3,7 @@
   "WorkspaceRootPath": "C:\\Users\\TE22ERILUN\\Desktop\\Gymanise Arbete\\GA - Neural Network\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{0A16206A-C323-45FD-9CFE-6381C2D74299}|GA - Neural Network.csproj|C:\\Users\\TE22ERILUN\\Desktop\\Gymanise Arbete\\GA - Neural Network\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{0A16206A-C323-45FD-9CFE-6381C2D74299}|GA - Neural Network.csproj|c:\\users\\te22erilun\\desktop\\gymanise arbete\\ga - neural network\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{0A16206A-C323-45FD-9CFE-6381C2D74299}|GA - Neural Network.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -11,16 +11,16 @@
       "RelativeMoniker": "D:0:0:{0A16206A-C323-45FD-9CFE-6381C2D74299}|GA - Neural Network.csproj|solutionrelative:classes\\network.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0A16206A-C323-45FD-9CFE-6381C2D74299}|GA - Neural Network.csproj|c:\\users\\te22erilun\\desktop\\gymanise arbete\\ga - neural network\\classes\\utility.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0A16206A-C323-45FD-9CFE-6381C2D74299}|GA - Neural Network.csproj|solutionrelative:classes\\utility.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0A16206A-C323-45FD-9CFE-6381C2D74299}|GA - Neural Network.csproj|c:\\users\\te22erilun\\desktop\\gymanise arbete\\ga - neural network\\classes\\matrix.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{0A16206A-C323-45FD-9CFE-6381C2D74299}|GA - Neural Network.csproj|C:\\Users\\TE22ERILUN\\Desktop\\Gymanise Arbete\\GA - Neural Network\\classes\\matrix.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{0A16206A-C323-45FD-9CFE-6381C2D74299}|GA - Neural Network.csproj|solutionrelative:classes\\matrix.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{0A16206A-C323-45FD-9CFE-6381C2D74299}|GA - Neural Network.csproj|C:\\Users\\TE22ERILUN\\Desktop\\Gymanise Arbete\\GA - Neural Network\\classes\\layer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{0A16206A-C323-45FD-9CFE-6381C2D74299}|GA - Neural Network.csproj|solutionrelative:classes\\layer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0A16206A-C323-45FD-9CFE-6381C2D74299}|GA - Neural Network.csproj|C:\\Users\\TE22ERILUN\\Desktop\\Gymanise Arbete\\GA - Neural Network\\classes\\utility.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0A16206A-C323-45FD-9CFE-6381C2D74299}|GA - Neural Network.csproj|solutionrelative:classes\\utility.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -52,7 +52,7 @@
               "RelativeDocumentMoniker": "Program.cs",
               "ToolTip": "C:\\Users\\TE22ERILUN\\Desktop\\Gymanise Arbete\\GA - Neural Network\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAABIAAAAcAAAAAAAAAA==",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAA4AAAA5AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-01T10:19:39.238Z",
               "EditorCaption": ""
@@ -65,40 +65,40 @@
               "RelativeDocumentMoniker": "Classes\\Network.cs",
               "ToolTip": "C:\\Users\\TE22ERILUN\\Desktop\\Gymanise Arbete\\GA - Neural Network\\Classes\\Network.cs",
               "RelativeToolTip": "Classes\\Network.cs",
-              "ViewState": "AgIAAEIAAAAAAAAAAAAAAEwAAAAxAAAAAAAAAA==",
+              "ViewState": "AgIAACoAAAAAAAAAAAAAADQAAABaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-02T12:08:44.982Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 3,
               "Title": "Layer.cs",
               "DocumentMoniker": "C:\\Users\\TE22ERILUN\\Desktop\\Gymanise Arbete\\GA - Neural Network\\Classes\\Layer.cs",
               "RelativeDocumentMoniker": "Classes\\Layer.cs",
               "ToolTip": "C:\\Users\\TE22ERILUN\\Desktop\\Gymanise Arbete\\GA - Neural Network\\Classes\\Layer.cs",
               "RelativeToolTip": "Classes\\Layer.cs",
-              "ViewState": "AgIAAA8AAAAAAAAAAAD4vyUAAAApAAAAAAAAAA==",
+              "ViewState": "AgIAABsAAAAAAAAAAAAwwCUAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-18T10:14:34.056Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 2,
               "Title": "Matrix.cs",
               "DocumentMoniker": "C:\\Users\\TE22ERILUN\\Desktop\\Gymanise Arbete\\GA - Neural Network\\Classes\\Matrix.cs",
               "RelativeDocumentMoniker": "Classes\\Matrix.cs",
               "ToolTip": "C:\\Users\\TE22ERILUN\\Desktop\\Gymanise Arbete\\GA - Neural Network\\Classes\\Matrix.cs",
               "RelativeToolTip": "Classes\\Matrix.cs",
-              "ViewState": "AgIAAEYAAAAAAAAAAAAhwE4AAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAAAIEAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-12-16T09:56:03.311Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "Utility.cs",
               "DocumentMoniker": "C:\\Users\\TE22ERILUN\\Desktop\\Gymanise Arbete\\GA - Neural Network\\Classes\\Utility.cs",
               "RelativeDocumentMoniker": "Classes\\Utility.cs",
