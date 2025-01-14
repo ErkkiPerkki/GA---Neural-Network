@@ -7,7 +7,6 @@
         public TrainingData(byte[] source) {
             _Source = source;
 
-
         }
     }
 }

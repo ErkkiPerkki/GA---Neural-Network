@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Threading;
 
 namespace NeuralNetwork
 {
@@ -86,6 +88,34 @@ namespace NeuralNetwork
             }
 
             return new Matrix(_Layers[_Layers.Length-1].Neurons.Elements);
+        }
+
+        public void Train(string dataPath) {
+            string[] data = File.ReadAllLines(dataPath);
+
+            for (uint i = 0; i < data.Length; i++) {
+                string line = data[i];
+                string[] lineData = line.Split(',');
+                string label = lineData[0];
+
+                Console.Clear();
+
+                Console.WriteLine("---------------------------");
+                Console.WriteLine(label);
+                Console.WriteLine("---------------------------");
+
+                for (uint j = 1; j < lineData.Length-1; j++) {
+                    uint brightness = uint.Parse(lineData[j]);
+
+                    Console.Write(brightness < 128 ? ' ' : '#');
+
+                    if (j % 28 == 0) {
+                        Console.Write("\n");
+                    }
+                }
+
+                Thread.Sleep(1000);
+            }
         }
     }
 }
