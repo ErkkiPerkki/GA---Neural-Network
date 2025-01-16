@@ -43,7 +43,6 @@ namespace NeuralNetwork
             uint largestLayer = GetLargestLayer();
             uint center = largestLayer / 2;
 
-            //Console.Clear();
             Console.CursorVisible = false;
 
             for (uint i = 0; i < _Layers.Length; i++) {
@@ -53,7 +52,7 @@ namespace NeuralNetwork
                 for (uint j = 0; j < size; j++) {
                     float value = _Layers[i].Neurons.Elements[j][0];
 
-                    ConsoleColor color = value > 0 ? ConsoleColor.Green : ConsoleColor.Red;
+                    ConsoleColor color = value >= 0 ? ConsoleColor.Green : ConsoleColor.Red;
                     ConsoleColor previousColor = Console.ForegroundColor;
                     Console.ForegroundColor = color;
 
@@ -90,32 +89,8 @@ namespace NeuralNetwork
             return new Matrix(_Layers[_Layers.Length-1].Neurons.Elements);
         }
 
-        public void Train(string dataPath) {
-            string[] data = File.ReadAllLines(dataPath);
-
-            for (uint i = 0; i < data.Length; i++) {
-                string line = data[i];
-                string[] lineData = line.Split(',');
-                string label = lineData[0];
-
-                Console.Clear();
-
-                Console.WriteLine("---------------------------");
-                Console.WriteLine(label);
-                Console.WriteLine("---------------------------");
-
-                for (uint j = 1; j < lineData.Length-1; j++) {
-                    uint brightness = uint.Parse(lineData[j]);
-
-                    Console.Write(brightness < 128 ? ' ' : '#');
-
-                    if (j % 28 == 0) {
-                        Console.Write("\n");
-                    }
-                }
-
-                Thread.Sleep(1000);
-            }
+        public void Train(TrainingData data) {
+            
         }
     }
 }

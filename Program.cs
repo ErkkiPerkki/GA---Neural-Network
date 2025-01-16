@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading;
 
 namespace NeuralNetwork
 {
@@ -12,8 +11,12 @@ namespace NeuralNetwork
             customCulture.NumberFormat.NumberDecimalSeparator = ".";
             System.Threading.Thread.CurrentThread.CurrentCulture = customCulture;
 
-            Network testNetwork = new Network(2, 8, 12, 6, 4);
-            testNetwork.Train(@"C:\Users\TE22ERILUN\Desktop\Gymanise Arbete\GA - Neural Network\TrainingData\mnist_train.csv");
+            string root = @"C:\Users\TE22ERILUN\Desktop\Gymanise Arbete\\GA - Neural Network";
+
+            Network testNetwork = new Network(784, 64, 10);
+            TrainingData data = new TrainingData($@"{root}\TrainingData\mnist_train.csv");
+            testNetwork.FeedForward(data.PackToColumnVector(1));
+            testNetwork.ToString();
             
             //Matrix a = new Matrix(new float[][] { new float[] { 1f, 1f}, new float[] { 1f, 1f} });
             //Matrix b = new Matrix(new float[][] { new float[] { 2f, 3f}, new float[] { 2f, 3f} });
