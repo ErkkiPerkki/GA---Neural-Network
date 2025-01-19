@@ -4,6 +4,7 @@
     {
         private uint _Size;
         private Matrix _Neurons;
+        private Matrix _UnactivatedNeurons;
         private Matrix _Weights;
         private Matrix _Biases;
 
@@ -14,6 +15,11 @@
         public Matrix Neurons {
             get { return _Neurons; }
             set { _Neurons = value; }
+        }
+
+        public Matrix UnactivatedNeurons {
+            get { return _UnactivatedNeurons; }
+            set { _UnactivatedNeurons = value; }
         }
 
         public Matrix Weights {
@@ -34,6 +40,7 @@
             biases.PopulateWithRandom(-1, 1);
 
             _Neurons = new Matrix(size, 1);
+            _UnactivatedNeurons = new Matrix(size, 1);
             _Biases = biases;
         }
 

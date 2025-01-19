@@ -7,6 +7,10 @@ namespace NeuralNetwork {
         private string _Path;
         private string[] _Data;
 
+        public string[] Data {
+            get { return _Data; }
+        }
+
         public TrainingData(string path) {
             _Path = path;
             _Data = File.ReadAllLines(path);
@@ -16,17 +20,22 @@ namespace NeuralNetwork {
             string source = _Data[index];
             string[] imageData = source.Split(',');
 
-            Console.Clear();
+            Console.CursorVisible = false;
+            Console.SetCursorPosition(0, 0);
 
             for (uint i = 0; i < imageData.Length; i++) {
                 uint brightness = uint.Parse(imageData[i]);
 
+                Console.ForegroundColor = brightness < 191 ? ConsoleColor.DarkGray : ConsoleColor.White;
                 Console.Write(brightness < 128 ? ' ' : '#');
 
                 if (i % 28 == 0) {
                     Console.Write("\n");
                 }
             }
+
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.CursorVisible = true;
         }
 
         public Matrix PackToColumnVector(uint index) {

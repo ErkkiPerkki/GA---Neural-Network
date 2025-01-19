@@ -5,3 +5,10 @@ C:\Users\TE22ERILUN\Desktop\Gymanise Arbete\GA - Neural Network\obj\Debug\GA - N
 C:\Users\TE22ERILUN\Desktop\Gymanise Arbete\GA - Neural Network\obj\Debug\GA - Neural Network.csproj.CoreCompileInputs.cache
 C:\Users\TE22ERILUN\Desktop\Gymanise Arbete\GA - Neural Network\obj\Debug\GA - Neural Network.exe
 C:\Users\TE22ERILUN\Desktop\Gymanise Arbete\GA - Neural Network\obj\Debug\GA - Neural Network.pdb
+D:\Visual Studio\Projects\GA---Neural-Network\obj\Debug\GA - Neural Network.csproj.AssemblyReference.cache
+D:\Visual Studio\Projects\GA---Neural-Network\obj\Debug\GA - Neural Network.csproj.CoreCompileInputs.cache
+D:\Visual Studio\Projects\GA---Neural-Network\obj\Debug\GA - Neural Network.exe
+D:\Visual Studio\Projects\GA---Neural-Network\obj\Debug\GA - Neural Network.pdb
+D:\Visual Studio\Projects\GA---Neural-Network\bin\Debug\GA - Neural Network.exe.config
+D:\Visual Studio\Projects\GA---Neural-Network\bin\Debug\GA - Neural Network.exe
+D:\Visual Studio\Projects\GA---Neural-Network\bin\Debug\GA - Neural Network.pdb

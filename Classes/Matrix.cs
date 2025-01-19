@@ -111,14 +111,76 @@ namespace NeuralNetwork
             return matrixSum;
         }
 
+        public static Matrix operator *(Matrix left, float right) {
+            float[][] result = new float[left.Rows][];
+
+            for (uint i = 0; i < left.Rows; i++) {
+                result[i] = new float[left.Columns];
+
+                for (uint j = 0; j < left.Columns; j++) {
+                    result[i][j] = left.Elements[i][j] * right;
+                }
+            }
+
+            return new Matrix(result);
+        }
+
+        public Matrix ElementWiseMultiplication(Matrix right) {
+            if (_Columns != right.Columns)
+                throw new Exception("Matrix A and B must be the same size");
+
+            float[][] result = new float[_Rows][];
+
+            for (uint row = 0; row < _Rows; row++) {
+                result[row] = new float[_Columns];
+
+                for (uint column = 0; column < _Columns; column++) {
+                    result[row][column] = _Elements[row][column] * right._Elements[row][column];
+                }
+            }
+
+            return new Matrix(result);
+        }
+
+        public Matrix OuterProduct(Matrix right) {
+            if (_Columns != 1 || right._Columns != 1)
+                throw new Exception("Matrix A and B must be column vectors");
+
+            float[][] result = new float[_Rows][];
+                
+            for (uint m = 0; m < _Rows; m++) {
+                result[m] = new float[right._Rows];
+
+                for (uint n = 0; n < right._Rows; n++) {
+                    result[m][n] = _Elements[m][0] * right._Elements[n][0];
+                }
+            }
+
+            return new Matrix(result);
+        }
+
+        public Matrix Transpose() {
+            float[][] result = new float[_Columns][];
+
+            for (uint column = 0; column < _Columns; column++) {
+                result[column] = new float[_Rows];
+
+                for (uint row = 0; row < _Rows; row++) {
+                    result[column][row] = _Elements[row][column];
+                }
+            }
+
+            return new Matrix(result);
+        }
+
         public override string ToString() {
             string output = "";
 
-            for (uint row = 0; row < Rows; row++) {
+            for (uint row = 0; row < _Rows; row++) {
                 output += "[";
 
-                for (uint column = 0; column < Columns; column++) {
-                    float element = Elements[row][column];
+                for (uint column = 0; column < _Columns; column++) {
+                    float element = _Elements[row][column];
 
                     output += $" {element.ToString("0.00")} ";
                 }
