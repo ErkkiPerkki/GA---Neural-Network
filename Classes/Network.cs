@@ -130,6 +130,13 @@ namespace NeuralNetwork
 
         public void Backpropogate(Matrix expectedOutput, float learningRate) {
             Layer outputLayer = _Layers[_Layers.Length - 1];
+            Matrix error = outputLayer.Neurons - expectedOutput;
+
+            for (int i = _Layers.Length-2; i >= 0; i--) {
+                Layer layer = _Layers[i];
+
+                Matrix weightGradient = _Layers[i+1].Neurons.Transpose() * error;
+            }
         }
 
         public void Train(TrainingData data, float learningRate) {
@@ -145,7 +152,7 @@ namespace NeuralNetwork
                 expectedOutput[correctAnswer] = 1;
 
                 FeedForward(inputMatrix);
-                Backpropogate(new Matrix(expectedOutput), learningRate);
+                Backpropogate( new Matrix(expectedOutput), learningRate);
 
                 Thread.Sleep(3000);
             }
