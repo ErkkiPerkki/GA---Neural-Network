@@ -40,14 +40,18 @@ namespace NeuralNetwork {
 
         public Matrix PackToColumnVector(uint index) {
             float[] elements = new float[784];
-
             string[] imageData = _Data[index].Split(',');
 
-            for (uint i = 1; i < 783; i++) {
+            for (uint i = 0; i < 783; i++) {
                 elements[i] = float.Parse(imageData[i]) / 255;
             }
 
             return new Matrix(elements);
+        }
+
+        public uint GetCorrectAnswer(uint index) {
+            string[] data = _Data[index].Split(',');
+            return uint.Parse(data[0]);
         }
     }
 }

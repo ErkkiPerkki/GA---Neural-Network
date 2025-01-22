@@ -200,5 +200,9 @@ namespace NeuralNetwork
                 }
             }
         }
+
+        public Matrix GetRow(uint row) {
+            return new Matrix(_Elements[row]);
+        }
     }
 }

@@ -44,7 +44,7 @@
             _Biases = biases;
         }
 
-        public void ConnectLayer(Layer nextLayer) {            
+        public void ConnectLayer(Layer nextLayer) {    
             _Weights = new Matrix(nextLayer._Size, _Size);
             _Weights.PopulateWithRandom(-1, 1);
         }

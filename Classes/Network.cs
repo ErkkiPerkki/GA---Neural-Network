@@ -128,6 +128,18 @@ namespace NeuralNetwork
             return new Matrix(_Layers[_Layers.Length-1].Neurons.Elements);
         }
 
+        public uint Cost(TrainingData data){ 
+            uint cost = 0;  
+            Layer outputLayer = _Layers[_Layers.Length-1];
+
+            for (uint i = 0; i < outputLayer.Neurons.Rows; i++) {
+                Matrix expectedOutput = new Matrix(5, 1);
+                cost += 1;
+            }
+
+            return cost;
+        }
+
         public void Backpropogate(Matrix expectedOutput, float learningRate) {
             Layer outputLayer = _Layers[_Layers.Length - 1];
             Matrix error = outputLayer.Neurons - expectedOutput;
@@ -135,7 +147,8 @@ namespace NeuralNetwork
             for (int i = _Layers.Length-2; i >= 0; i--) {
                 Layer layer = _Layers[i];
 
-                Matrix weightGradient = _Layers[i+1].Neurons.Transpose() * error;
+                //Console.WriteLine($"{layer.Weights.Transpose().Columns} * {error.Rows}");
+                Matrix weightGradient = layer.Weights.Transpose() * error;
             }
         }
 
@@ -143,15 +156,13 @@ namespace NeuralNetwork
             for (uint i = 0; i < data.Data.Length; i++) {
                 Console.Clear();
 
-                string imageData = data.Data[i];
-                string[] splitData = imageData.Split(',');
-                Matrix inputMatrix = data.PackToColumnVector(i);
+                Matrix inputData = data.PackToColumnVector(i);
 
-                uint correctAnswer = uint.Parse(splitData[0]);
+                uint correctAnswer = data.GetCorrectAnswer(i);
                 float[] expectedOutput = new float[10];
                 expectedOutput[correctAnswer] = 1;
 
-                FeedForward(inputMatrix);
+                FeedForward(inputData);
                 Backpropogate( new Matrix(expectedOutput), learningRate);
 
                 Thread.Sleep(3000);
