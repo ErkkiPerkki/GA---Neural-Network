@@ -5,15 +5,26 @@ using System.IO;
 namespace NeuralNetwork {
     public class TrainingData {
         private string _Path;
-        private string[] _Data;
+        private string[] _Source;
+        private string[][] _Data;
+        private (int, int) _Size;
 
-        public string[] Data {
+
+        public string[][] Data {
             get { return _Data; }
         }
 
         public TrainingData(string path) {
             _Path = path;
-            _Data = File.ReadAllLines(path);
+            _Source = File.ReadAllLines(path);
+
+            _Size = (_Source.Length, _Source[0].Length);
+            _Data = new string[_Size][];
+
+            for (int i = 0; i < _Size; i++) {
+                _Data[i] = new string[];
+            }
+
         }
 
         public void DrawImage(uint index) {
@@ -49,9 +60,12 @@ namespace NeuralNetwork {
             return new Matrix(elements);
         }
 
-        public uint GetCorrectAnswer(uint index) {
+        public Matrix GetCorrectAnswer(uint index) {
             string[] data = _Data[index].Split(',');
-            return uint.Parse(data[0]);
+            float[] columnVector = new float[10];
+            columnVector[index] = 1;
+
+            return new Matrix(columnVector);
         }
     }
 }

@@ -16,11 +16,15 @@ namespace NeuralNetwork
             //Console.SetWindowSize(150, 40);
 
             string root = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
-            string trainingDataPath = $@"{root}\TrainingData\mnist_train.csv";
-            Debug.Assert(File.Exists(trainingDataPath), $"Couldn't find training data in path [{trainingDataPath}]");
+            //string trainingDataPath = $@"{root}\TrainingData\mnist_train.csv";
+            //Debug.Assert(File.Exists(trainingDataPath), $"Couldn't find training data in path [{trainingDataPath}]");
 
-            Network testNetwork = new Network(784, 64, 10); //784, 64, 10
-            TrainingData data = new TrainingData(trainingDataPath);
+            //Network testNetwork = new Network(784, 64, 10); //784, 64, 10
+            //TrainingData data = new TrainingData(trainingDataPath);
+            //testNetwork.Train(data, 0.01f);
+
+            Network testNetwork = new Network(2, 2, 1);
+            TrainingData data = new TrainingData($@"{root}\TrainingData\TestData.csv");
             testNetwork.Train(data, 0.01f);
 
             //for (uint i = 0; i < data.Data.Length; i++) {
@@ -29,7 +33,7 @@ namespace NeuralNetwork
 
             //    Thread.Sleep(500);
             //}
-            
+
             //Matrix a = new Matrix(new float[][] { new float[] { 1f, 1f}, new float[] { 1f, 1f} });
             //Matrix b = new Matrix(new float[][] { new float[] { 2f, 3f}, new float[] { 2f, 3f} });
             //Matrix c = a + b;

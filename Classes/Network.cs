@@ -120,36 +120,40 @@ namespace NeuralNetwork
                 Layer currentLayer = _Layers[i];
                 Layer nextLayer = _Layers[i + 1];
 
-                Matrix activation = currentLayer.Weights * currentLayer.Neurons + nextLayer.Biases;
-                nextLayer.UnactivatedNeurons = activation;
-                nextLayer.Neurons = Sigmoid(activation);
+                Matrix layer = currentLayer.Weights * currentLayer.Neurons + nextLayer.Biases;
+                nextLayer.UnactivatedNeurons = layer;
+                nextLayer.Neurons = Sigmoid(layer);
             }
 
             return new Matrix(_Layers[_Layers.Length-1].Neurons.Elements);
         }
 
         public uint Cost(TrainingData data){ 
-            uint cost = 0;  
+            uint cost = 0;
             Layer outputLayer = _Layers[_Layers.Length-1];
 
+            float[] expectedOutputArray = new float[outputLayer.Size];  
+            Matrix expectedOutput = new Matrix(outputLayer.Size, 1);
+
             for (uint i = 0; i < outputLayer.Neurons.Rows; i++) {
-                Matrix expectedOutput = new Matrix(5, 1);
+                
                 cost += 1;
             }
 
             return cost;
         }
 
-        public void Backpropogate(Matrix expectedOutput, float learningRate) {
+        public void Backpropogate(Matrix data, Matrix expectedOutput, float learningRate) {
             Layer outputLayer = _Layers[_Layers.Length - 1];
             Matrix error = outputLayer.Neurons - expectedOutput;
 
-            for (int i = _Layers.Length-2; i >= 0; i--) {
-                Layer layer = _Layers[i];
+            Matrix costDerivative = error * -2f;
 
-                //Console.WriteLine($"{layer.Weights.Transpose().Columns} * {error.Rows}");
-                Matrix weightGradient = layer.Weights.Transpose() * error;
-            }
+            // Output Derivatives
+            Layer lastHiddenLayer = _Layers[_Layers.Length - 2];
+
+            Matrix outputWeightGradient = lastHiddenLayer.Neurons * SigmoidDerivative(outputLayer.UnactivatedNeurons).Transpose();
+            Console.WriteLine(outputWeightGradient);
         }
 
         public void Train(TrainingData data, float learningRate) {
@@ -157,13 +161,10 @@ namespace NeuralNetwork
                 Console.Clear();
 
                 Matrix inputData = data.PackToColumnVector(i);
-
-                uint correctAnswer = data.GetCorrectAnswer(i);
-                float[] expectedOutput = new float[10];
-                expectedOutput[correctAnswer] = 1;
+                Matrix correctAnswer = data.GetCorrectAnswer(i);
 
                 FeedForward(inputData);
-                Backpropogate( new Matrix(expectedOutput), learningRate);
+                Backpropogate(inputData, correctAnswer, learningRate);
 
                 Thread.Sleep(3000);
             }

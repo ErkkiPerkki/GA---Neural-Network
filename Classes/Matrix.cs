@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Diagnostics;
 
 namespace NeuralNetwork
 {
-    public class Matrix {
-
+    public class Matrix
+    {
         private uint _Rows;
         private uint _Columns;
         private float[][] _Elements;    
@@ -66,7 +67,7 @@ namespace NeuralNetwork
                     for (uint k = 0; k < left.Columns; k++) {
                         sum += left.Elements[i][k] * right.Elements[k][j];
                     }
-
+                    
                     product[i][j] = sum;
                 }
             }
@@ -126,7 +127,7 @@ namespace NeuralNetwork
         }
 
         public Matrix ElementWiseMultiplication(Matrix right) {
-            if (_Columns != right.Columns)
+            if (_Columns != right._Columns || _Rows != right._Rows)
                 throw new Exception("Matrix A and B must be the same size");
 
             float[][] result = new float[_Rows][];

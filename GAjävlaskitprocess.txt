@@ -1,0 +1,29 @@
+1. Feed forward #
+2. Cost derivative of error #
+	= -2 * (correctOutput - networkOutput)
+
+3. Ouput Derivatives
+Weight derivatives
+	= previousActivation * SigmoidDerivative(preActivation)
+Bias derivatives
+	= SigmoidDerivative(preActivation)
+
+Previous activation derivatives
+	= weight * SigmoidDerivative(preActivation)
+
+4. Hidden Derivatives
+Weight Derivatives
+	= trainingData * SigmoidDerivatives(preActivation)
+Bias Derivatives
+	= SigmoidDerivative(preActivation)
+
+5. Update weights and biases
+New weights
+	= LEARN_RATE * costDerivative * activationDerivative * weightDerivative
+Output weights
+	= LEARN_RATE * costDerivative * weightDerivative
+
+
+
+[i1] [w1, w2] [h1] [w5] [o1]
+[i2] [w3, w4] [h2] [w6]
