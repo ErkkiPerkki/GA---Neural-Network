@@ -7,29 +7,32 @@ namespace NeuralNetwork {
         private string _Path;
         private string[] _Source;
         private string[][] _Data;
-        private (int, int) _Size;
+        private (int Rows, int Columns) _Size;
 
 
         public string[][] Data {
             get { return _Data; }
+        }
+        public (int Rows, int Columns) Size {
+            get { return _Size; } 
         }
 
         public TrainingData(string path) {
             _Path = path;
             _Source = File.ReadAllLines(path);
 
-            _Size = (_Source.Length, _Source[0].Length);
-            _Data = new string[_Size][];
+            _Size = (_Source.Length, 0);
+            _Data = new string[_Size.Rows][];
 
-            for (int i = 0; i < _Size; i++) {
-                _Data[i] = new string[];
+            for (int i = 0; i < _Size.Rows; i++) {
+                _Data[i] = _Source[i].Split(',');
             }
 
+            _Size.Columns = _Data[0].Length;
         }
 
         public void DrawImage(uint index) {
-            string source = _Data[index];
-            string[] imageData = source.Split(',');
+            string[] imageData = _Data[index];
 
             Console.CursorVisible = false;
             Console.SetCursorPosition(0, 0);
@@ -49,21 +52,31 @@ namespace NeuralNetwork {
             Console.CursorVisible = true;
         }
 
-        public Matrix PackToColumnVector(uint index) {
-            float[] elements = new float[784];
-            string[] imageData = _Data[index].Split(',');
+        public Matrix PackToColumnVector(uint index, bool isImage = false) {
+            float[] elements = new float[_Size.Columns-1];
+            string[] imageData = _Data[index];
 
-            for (uint i = 0; i < 783; i++) {
-                elements[i] = float.Parse(imageData[i]) / 255;
+            for (uint i = 1; i < _Size.Columns; i++) {
+                elements[i] = float.Parse(imageData[i]);
+                Console.WriteLine(elements[i]);
+
+                if (isImage)
+                    elements[i] /= 255;
             }
 
             return new Matrix(elements);
         }
 
-        public Matrix GetCorrectAnswer(uint index) {
-            string[] data = _Data[index].Split(',');
-            float[] columnVector = new float[10];
-            columnVector[index] = 1;
+        public Matrix GetCorrectAnswer(uint index, uint outputLayerSize) {
+            string[] data = _Data[index];
+            float[] columnVector = new float[outputLayerSize];
+
+            if (outputLayerSize == 1) {
+                columnVector[0] = float.Parse(data[0]);
+            }
+            else {
+                columnVector[index] = 1;
+            }
 
             return new Matrix(columnVector);
         }

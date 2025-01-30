@@ -111,10 +111,13 @@ namespace NeuralNetwork
         }
 
         public Matrix FeedForward(Matrix inputs) {
-            uint outputLayerSize = _Layers[_Layers.Length-1].Size;
-            float[] outputs = new float[outputLayerSize];
+            if (inputs.Rows != _Layers[0].Neurons.Rows)
+                throw new Exception("Input matrix must match the size of the input layer");
 
             _Layers[0].Neurons = inputs;
+
+            uint outputLayerSize = _Layers[_Layers.Length-1].Size;
+            float[] outputs = new float[outputLayerSize];
 
             for (uint i = 0; i < _Layers.Length-1; i++) {
                 Layer currentLayer = _Layers[i];
@@ -136,7 +139,6 @@ namespace NeuralNetwork
             Matrix expectedOutput = new Matrix(outputLayer.Size, 1);
 
             for (uint i = 0; i < outputLayer.Neurons.Rows; i++) {
-                
                 cost += 1;
             }
 
@@ -153,15 +155,15 @@ namespace NeuralNetwork
             Layer lastHiddenLayer = _Layers[_Layers.Length - 2];
 
             Matrix outputWeightGradient = lastHiddenLayer.Neurons * SigmoidDerivative(outputLayer.UnactivatedNeurons).Transpose();
-            Console.WriteLine(outputWeightGradient);
         }
 
         public void Train(TrainingData data, float learningRate) {
-            for (uint i = 0; i < data.Data.Length; i++) {
-                Console.Clear();
+            for (uint i = 0; i < data.Size.Rows; i++) {
+                //Console.Clear();
 
                 Matrix inputData = data.PackToColumnVector(i);
-                Matrix correctAnswer = data.GetCorrectAnswer(i);
+                Console.WriteLine(inputData);
+                Matrix correctAnswer = data.GetCorrectAnswer(i, _Layers[_Layers.Length-1].Size);
 
                 FeedForward(inputData);
                 Backpropogate(inputData, correctAnswer, learningRate);
