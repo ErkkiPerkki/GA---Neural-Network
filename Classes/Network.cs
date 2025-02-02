@@ -1,25 +1,26 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Text;
+using System.Text.Json;
 using System.Threading;
 
 namespace NeuralNetwork
 {
     public class Network {
         private Layer[] _Layers;
+        private int _NetworkSize;
 
         public Layer[] Layers { get { return _Layers; } }
+        public int NetworkSize { get { return _NetworkSize; } }
 
         public Network(params uint[] layerSizes) {
-            _Layers = new Layer[layerSizes.Length];
+            _NetworkSize = layerSizes.Length;
+            _Layers = new Layer[_NetworkSize];
 
-            for (uint i = 0; i < layerSizes.Length; i++) {
+            for (uint i = 0; i < _NetworkSize; i++) {
                 uint layerSize = layerSizes[i];
                 Layer layer = new Layer(layerSize);
-
-                for (uint j = 0; j < layerSize; j++) {
-                    layer.Neurons.Elements[j][0] = 1f;
-                }
 
                 if (i > 0) {
                     _Layers[i - 1].ConnectLayer(layer);
@@ -29,12 +30,35 @@ namespace NeuralNetwork
             }
         }
 
+        public Network(string path) {
+            string jsonData = File.ReadAllText(path);
+            NetworkData networkData = JsonSerializer.Deserialize<NetworkData>(jsonData, new JsonSerializerOptions {
+                WriteIndented = true,
+                IncludeFields = true
+            });
+
+            _NetworkSize = networkData.Weights.Length;
+            _Layers = new Layer[_NetworkSize];
+
+            for (int i = 0; i < _NetworkSize; i++) {
+                int layerSize = networkData.Biases[i].Length;
+                Layer layer = new Layer((uint)layerSize);
+
+                layer.Biases = new Matrix(networkData.Biases[i]);
+
+                if (i < _NetworkSize - 1)
+                    layer.Weights = new Matrix(networkData.Weights[i]);
+
+                _Layers[i] = layer;
+            }
+        }
+
         public uint GetLargestLayer() {
             uint largest = 0;
 
-            for (uint i = 0; i < _Layers.Length; i++) {
+            for (uint i = 0; i < _NetworkSize; i++) {
                 if (_Layers[i].Size > largest)
-                    largest = (uint)_Layers[i].Size;
+                    largest = _Layers[i].Size;
             }
 
             return largest;
@@ -46,7 +70,7 @@ namespace NeuralNetwork
 
             Console.CursorVisible = false;
 
-            for (uint i = 0; i < _Layers.Length; i++) {
+            for (uint i = 0; i < _NetworkSize; i++) {
                 uint size = _Layers[i].Size;
                 uint halfSize = size / 2;
                 uint layerStartPosition = center - halfSize;
@@ -103,7 +127,8 @@ namespace NeuralNetwork
                 for (uint column = 0; column < matrix.Columns; column++) {
                     float value = matrix.Elements[row][column];
 
-                    result[row][column] = Sigmoid(value) * (1 - value);
+                    float sigmoidValue = Sigmoid(value);
+                    result[row][column] = sigmoidValue * (1 - sigmoidValue);
                 }
             }
 
@@ -116,10 +141,10 @@ namespace NeuralNetwork
 
             _Layers[0].Neurons = inputs;
 
-            uint outputLayerSize = _Layers[_Layers.Length-1].Size;
+            uint outputLayerSize = _Layers[_NetworkSize - 1].Size;
             float[] outputs = new float[outputLayerSize];
 
-            for (uint i = 0; i < _Layers.Length-1; i++) {
+            for (uint i = 0; i < _NetworkSize - 1; i++) {
                 Layer currentLayer = _Layers[i];
                 Layer nextLayer = _Layers[i + 1];
 
@@ -131,46 +156,68 @@ namespace NeuralNetwork
             return new Matrix(_Layers[_Layers.Length-1].Neurons.Elements);
         }
 
-        public uint Cost(TrainingData data){ 
-            uint cost = 0;
-            Layer outputLayer = _Layers[_Layers.Length-1];
+        public float Backpropogate(Matrix data, Matrix expectedOutput, float learningRate) {
+            int layersAmount = _NetworkSize;
+            Layer outputLayer = _Layers[layersAmount - 1];
+            Layer lastHiddenLayer = _Layers[layersAmount - 2];
 
-            float[] expectedOutputArray = new float[outputLayer.Size];  
-            Matrix expectedOutput = new Matrix(outputLayer.Size, 1);
+            Matrix error = expectedOutput - outputLayer.Neurons;
+            Matrix outputDerivative = error.ElementWiseMultiplication(SigmoidDerivative(outputLayer.UnactivatedNeurons));
 
-            for (uint i = 0; i < outputLayer.Neurons.Rows; i++) {
-                cost += 1;
+            lastHiddenLayer.Weights += learningRate * (outputDerivative * lastHiddenLayer.Neurons.Transpose());
+            outputLayer.Biases += learningRate * outputDerivative;
+
+            // Backpropagation
+            for (int i = layersAmount - 2; i > 0; i--) {
+                Layer currentLayer = _Layers[i];
+                Layer previousLayer = _Layers[i - 1];
+
+                Matrix hiddenError = currentLayer.Weights.Transpose() * outputDerivative;
+                Matrix hiddenDerivative = hiddenError.ElementWiseMultiplication(SigmoidDerivative(currentLayer.UnactivatedNeurons));
+
+                previousLayer.Weights += learningRate * (hiddenDerivative * previousLayer.Neurons.Transpose());
+                currentLayer.Biases += learningRate * hiddenDerivative;
+
+                outputDerivative = hiddenDerivative;
             }
 
-            return cost;
+            return error.GetLargestValue().Value;
         }
 
-        public void Backpropogate(Matrix data, Matrix expectedOutput, float learningRate) {
-            Layer outputLayer = _Layers[_Layers.Length - 1];
-            Matrix error = outputLayer.Neurons - expectedOutput;
+        public void SaveToFile() {
+            string rootPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
+            string networkDataPath = $@"{rootPath}\NetworkData\NetworkData.json";
 
-            Matrix costDerivative = error * -2f;
+            NetworkData networkData = new NetworkData(this);
+            string networkDataJSON = networkData.ToJSON();
 
-            // Output Derivatives
-            Layer lastHiddenLayer = _Layers[_Layers.Length - 2];
-
-            Matrix outputWeightGradient = lastHiddenLayer.Neurons * SigmoidDerivative(outputLayer.UnactivatedNeurons).Transpose();
+            File.WriteAllText(networkDataPath, networkDataJSON);
         }
 
-        public void Train(TrainingData data, float learningRate) {
-            for (uint i = 0; i < data.Size.Rows; i++) {
-                //Console.Clear();
+        public void Train(TrainingData data, float learningRate, int epochs) {
+            for (int epoch = 0; epoch < epochs; epoch++) {
+                
+                for (uint i = 0; i < data.Size.Rows; i++) {
+                    Matrix inputData = data.PackToColumnVector(i);
+                    Matrix correctAnswer = data.GetCorrectAnswer(i, _Layers[_Layers.Length - 1].Size);
 
-                Matrix inputData = data.PackToColumnVector(i);
-                Console.WriteLine(inputData);
-                Matrix correctAnswer = data.GetCorrectAnswer(i, _Layers[_Layers.Length-1].Size);
+                    FeedForward(inputData);
+                    float networkError = Backpropogate(inputData, correctAnswer, learningRate);
 
-                FeedForward(inputData);
-                Backpropogate(inputData, correctAnswer, learningRate);
+                    Console.SetCursorPosition(0, 0);
+                    Utility.ColoredPrint($"Epoch: {epoch + 1} / {epochs}    ", ConsoleColor.DarkCyan);
 
-                Thread.Sleep(3000);
+                    Console.SetCursorPosition(0, 1);
+                    Utility.ColoredPrint($"Progress: {100 * i / data.Size.Rows}%   ", ConsoleColor.Green);
+
+                    Console.SetCursorPosition(0, 2);
+                    Utility.ColoredPrint($"Network Error: [{networkError}]                    ", ConsoleColor.Red);
+                    //Console.Write("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+                }
             }
-            
+
+            SaveToFile();
+            Utility.ColoredPrint("Finished Training!", ConsoleColor.Green);
         }
     }
 }

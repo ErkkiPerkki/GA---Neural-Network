@@ -13,41 +13,59 @@ namespace NeuralNetwork
             System.Globalization.CultureInfo customCulture = (System.Globalization.CultureInfo)System.Threading.Thread.CurrentThread.CurrentCulture.Clone();
             customCulture.NumberFormat.NumberDecimalSeparator = ".";
             System.Threading.Thread.CurrentThread.CurrentCulture = customCulture;
-            //Console.SetWindowSize(150, 40);
 
             string root = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
-            //string trainingDataPath = $@"{root}\TrainingData\mnist_train.csv";
-            //Debug.Assert(File.Exists(trainingDataPath), $"Couldn't find training data in path [{trainingDataPath}]");
 
-            //Network testNetwork = new Network(784, 64, 10); //784, 64, 10
-            //TrainingData data = new TrainingData(trainingDataPath);
-            //testNetwork.Train(data, 0.01f);
+            // Train
+            string trainingDataPath = $@"{root}\TrainingData\mnist_train.csv";
+            Debug.Assert(File.Exists(trainingDataPath), $"Couldn't find training data in path [{trainingDataPath}]");
 
-            Network testNetwork = new Network(2, 2, 1);
-            TrainingData data = new TrainingData($@"{root}\TrainingData\TestData.csv");
-            testNetwork.Train(data, 0.01f);
+            Network testNetwork = new Network(784, 100, 10);
+            TrainingData data = new TrainingData(trainingDataPath);
+            testNetwork.Train(data, 0.05f, 3);
 
-            //for (uint i = 0; i < data.Data.Length; i++) {
-            //    Matrix result = testNetwork.FeedForward(data.PackToColumnVector(i));
-            //    data.DrawImage(i);
+            // Test
+            //string networkDataPath = $@"{root}\NetworkData\NetworkData.json";
+            //Network loadedNetwork = new Network(networkDataPath);
+            //TrainingData testData = new TrainingData($@"{root}\TrainingData\mnist_test.csv");
 
-            //    Thread.Sleep(500);
+            //float accuracySum = 0;
+            //for (uint i = 0; i < testData.Size.Rows; i++) {
+            //    Console.Clear();
+
+            //    Matrix result = loadedNetwork.FeedForward(testData.PackToColumnVector(i));
+            //    accuracySum += FormatNetworkOutput(result);
+            //    Console.WriteLine(accuracySum / i);
+
+            //    testData.DrawImage(i);
+
+            //    Thread.Sleep(25);
             //}
-
-            //Matrix a = new Matrix(new float[][] { new float[] { 1f, 1f}, new float[] { 1f, 1f} });
-            //Matrix b = new Matrix(new float[][] { new float[] { 2f, 3f}, new float[] { 2f, 3f} });
-            //Matrix c = a + b;
-
-            //Console.WriteLine(a.ToString());
-            //Console.WriteLine(b.ToString());
-            //Console.WriteLine(c.ToString());
 
             Console.ReadKey();
         }
 
-        public static void FormatOutput(Matrix output)
-        {
-            
+        public static float FormatNetworkOutput(Matrix networkOutput) {
+            Console.WriteLine(networkOutput);
+
+            float largestOutput = 0;
+            int largestOutputIndex = 0;
+
+            for (int row = 0; row < networkOutput.Rows; row++) {
+                float value = networkOutput.Elements[row][0];
+
+                if (value > largestOutput) {
+                    largestOutput = value;
+                    largestOutputIndex = row;
+                }
+            }
+
+            Utility.ColoredWrite(largestOutputIndex.ToString(), ConsoleColor.DarkCyan);
+            Utility.ColoredWrite(": ", ConsoleColor.White);
+            Utility.ColoredWrite(largestOutput.ToString(), ConsoleColor.Green);
+            Console.WriteLine();
+
+            return largestOutput;
         }
     }
 }

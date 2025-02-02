@@ -126,6 +126,20 @@ namespace NeuralNetwork
             return new Matrix(result);
         }
 
+        public static Matrix operator *(float left, Matrix right) {
+            float[][] result = new float[right.Rows][];
+
+            for (uint i = 0; i < right.Rows; i++) {
+                result[i] = new float[right.Columns];
+
+                for (uint j = 0; j < right.Columns; j++) {
+                    result[i][j] = right.Elements[i][j] * left;
+                }
+            }
+
+            return new Matrix(result);
+        }
+
         public Matrix ElementWiseMultiplication(Matrix right) {
             if (_Columns != right._Columns || _Rows != right._Rows)
                 throw new Exception("Matrix A and B must be the same size");
@@ -137,23 +151,6 @@ namespace NeuralNetwork
 
                 for (uint column = 0; column < _Columns; column++) {
                     result[row][column] = _Elements[row][column] * right._Elements[row][column];
-                }
-            }
-
-            return new Matrix(result);
-        }
-
-        public Matrix OuterProduct(Matrix right) {
-            if (_Columns != 1 || right._Columns != 1)
-                throw new Exception("Matrix A and B must be column vectors");
-
-            float[][] result = new float[_Rows][];
-                
-            for (uint m = 0; m < _Rows; m++) {
-                result[m] = new float[right._Rows];
-
-                for (uint n = 0; n < right._Rows; n++) {
-                    result[m][n] = _Elements[m][0] * right._Elements[n][0];
                 }
             }
 
@@ -202,8 +199,52 @@ namespace NeuralNetwork
             }
         }
 
-        public Matrix GetRow(uint row) {
-            return new Matrix(_Elements[row]);
+        public Matrix ColumnSum() {
+            Matrix columnSum = new Matrix(1, _Columns);
+
+            for (int column = 0; column < _Columns; column++) {
+                float sum = 0;
+
+                for (int row = 0; row < _Rows; row++) {
+                    sum += _Elements[row][column];
+                }
+
+                columnSum.Elements[0][column] = sum;
+            }
+
+            return columnSum;
+        }
+
+        public float Sum() {
+            float sum = 0;
+
+            for (int row = 0; row < _Rows; row++) {
+                for (int column = 0; column < _Columns; column++) {
+                    sum += _Elements[row][column];
+                }
+            }
+
+            return sum;
+        }
+
+        public (float Value, int Row, int Column) GetLargestValue() {
+            float largestValue = 0;
+            int largestValueRow = 0;
+            int largestValueColumn = 0;
+
+            for (int row = 0; row < _Rows; row++) {
+                for (int column = 0; column < _Columns; column++) {
+                    float value = _Elements[row][column];
+
+                    if (value > largestValue) {
+                        largestValue = value;
+                        largestValueRow = row;
+                        largestValueColumn = column;
+                    }
+                }
+            }
+
+            return (largestValue, largestValueRow, largestValueColumn);
         }
     }
 }

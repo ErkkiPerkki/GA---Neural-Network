@@ -3,9 +3,9 @@
 	= -2 * (correctOutput - networkOutput)
 
 3. Ouput Derivatives
-Weight derivatives
+Weight derivatives #
 	= previousActivation * SigmoidDerivative(preActivation)
-Bias derivatives
+Bias derivatives #
 	= SigmoidDerivative(preActivation)
 
 Previous activation derivatives
@@ -22,7 +22,6 @@ New weights
 	= LEARN_RATE * costDerivative * activationDerivative * weightDerivative
 Output weights
 	= LEARN_RATE * costDerivative * weightDerivative
-
 
 
 [i1] [w1, w2] [h1] [w5] [o1]

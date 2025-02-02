@@ -12,3 +12,17 @@ D:\Visual Studio\Projects\GA---Neural-Network\obj\Debug\GA - Neural Network.pdb
 D:\Visual Studio\Projects\GA---Neural-Network\bin\Debug\GA - Neural Network.exe.config
 D:\Visual Studio\Projects\GA---Neural-Network\bin\Debug\GA - Neural Network.exe
 D:\Visual Studio\Projects\GA---Neural-Network\bin\Debug\GA - Neural Network.pdb
+D:\Visual Studio\Projects\GA---Neural-Network\bin\Debug\System.Text.Json.dll
+D:\Visual Studio\Projects\GA---Neural-Network\bin\Debug\System.Memory.dll
+D:\Visual Studio\Projects\GA---Neural-Network\bin\Debug\System.ValueTuple.dll
+D:\Visual Studio\Projects\GA---Neural-Network\bin\Debug\System.Text.Encodings.Web.dll
+D:\Visual Studio\Projects\GA---Neural-Network\bin\Debug\System.Numerics.Vectors.dll
+D:\Visual Studio\Projects\GA---Neural-Network\bin\Debug\System.Threading.Tasks.Extensions.dll
+D:\Visual Studio\Projects\GA---Neural-Network\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
+D:\Visual Studio\Projects\GA---Neural-Network\bin\Debug\System.Buffers.dll
+D:\Visual Studio\Projects\GA---Neural-Network\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+D:\Visual Studio\Projects\GA---Neural-Network\obj\Debug\GA - Neu.2DB6BFB9.Up2Date
+D:\Visual Studio\Projects\GA---Neural-Network\bin\Debug\System.Buffers.xml
+D:\Visual Studio\Projects\GA---Neural-Network\bin\Debug\System.Memory.xml
+D:\Visual Studio\Projects\GA---Neural-Network\bin\Debug\System.Numerics.Vectors.xml
+D:\Visual Studio\Projects\GA---Neural-Network\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml

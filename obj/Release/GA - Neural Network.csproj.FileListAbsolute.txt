@@ -1,0 +1,21 @@
+D:\Visual Studio\Projects\GA---Neural-Network\bin\Release\GA - Neural Network.exe.config
+D:\Visual Studio\Projects\GA---Neural-Network\bin\Release\GA - Neural Network.exe
+D:\Visual Studio\Projects\GA---Neural-Network\bin\Release\GA - Neural Network.pdb
+D:\Visual Studio\Projects\GA---Neural-Network\bin\Release\System.Buffers.dll
+D:\Visual Studio\Projects\GA---Neural-Network\bin\Release\System.Memory.dll
+D:\Visual Studio\Projects\GA---Neural-Network\bin\Release\System.Numerics.Vectors.dll
+D:\Visual Studio\Projects\GA---Neural-Network\bin\Release\System.Runtime.CompilerServices.Unsafe.dll
+D:\Visual Studio\Projects\GA---Neural-Network\bin\Release\System.Text.Json.dll
+D:\Visual Studio\Projects\GA---Neural-Network\bin\Release\System.ValueTuple.dll
+D:\Visual Studio\Projects\GA---Neural-Network\bin\Release\System.Text.Encodings.Web.dll
+D:\Visual Studio\Projects\GA---Neural-Network\bin\Release\System.Threading.Tasks.Extensions.dll
+D:\Visual Studio\Projects\GA---Neural-Network\bin\Release\Microsoft.Bcl.AsyncInterfaces.dll
+D:\Visual Studio\Projects\GA---Neural-Network\bin\Release\System.Buffers.xml
+D:\Visual Studio\Projects\GA---Neural-Network\bin\Release\System.Memory.xml
+D:\Visual Studio\Projects\GA---Neural-Network\bin\Release\System.Numerics.Vectors.xml
+D:\Visual Studio\Projects\GA---Neural-Network\bin\Release\System.Runtime.CompilerServices.Unsafe.xml
+D:\Visual Studio\Projects\GA---Neural-Network\obj\Release\GA - Neural Network.csproj.AssemblyReference.cache
+D:\Visual Studio\Projects\GA---Neural-Network\obj\Release\GA - Neural Network.csproj.CoreCompileInputs.cache
+D:\Visual Studio\Projects\GA---Neural-Network\obj\Release\GA - Neu.2DB6BFB9.Up2Date
+D:\Visual Studio\Projects\GA---Neural-Network\obj\Release\GA - Neural Network.exe
+D:\Visual Studio\Projects\GA---Neural-Network\obj\Release\GA - Neural Network.pdb

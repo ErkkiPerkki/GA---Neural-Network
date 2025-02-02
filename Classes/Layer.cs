@@ -44,6 +44,17 @@
             _Biases = biases;
         }
 
+        public Layer(Matrix weights) {
+            _Size = weights.Rows;
+
+            _Neurons = new Matrix(_Size, 1);
+            _UnactivatedNeurons = new Matrix(_Size, 1);
+            _Weights = weights;
+            
+            _Biases = new Matrix(_Size, 1);
+            _Biases.PopulateWithRandom(-1, 1);
+        }
+
         public void ConnectLayer(Layer nextLayer) {    
             _Weights = new Matrix(nextLayer._Size, _Size);
             _Weights.PopulateWithRandom(-1, 1);

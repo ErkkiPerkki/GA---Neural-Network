@@ -9,7 +9,6 @@ namespace NeuralNetwork {
         private string[][] _Data;
         private (int Rows, int Columns) _Size;
 
-
         public string[][] Data {
             get { return _Data; }
         }
@@ -35,7 +34,6 @@ namespace NeuralNetwork {
             string[] imageData = _Data[index];
 
             Console.CursorVisible = false;
-            Console.SetCursorPosition(0, 0);
 
             for (uint i = 0; i < imageData.Length; i++) {
                 uint brightness = uint.Parse(imageData[i]);
@@ -53,18 +51,17 @@ namespace NeuralNetwork {
         }
 
         public Matrix PackToColumnVector(uint index, bool isImage = false) {
-            float[] elements = new float[_Size.Columns-1];
+            float[] vectorElements = new float[_Size.Columns-1];
             string[] imageData = _Data[index];
 
             for (uint i = 1; i < _Size.Columns; i++) {
-                elements[i] = float.Parse(imageData[i]);
-                Console.WriteLine(elements[i]);
+                vectorElements[i-1] = float.Parse(imageData[i]);
 
                 if (isImage)
-                    elements[i] /= 255;
+                    vectorElements[i-1] /= 255;
             }
 
-            return new Matrix(elements);
+            return new Matrix(vectorElements);
         }
 
         public Matrix GetCorrectAnswer(uint index, uint outputLayerSize) {
@@ -75,7 +72,7 @@ namespace NeuralNetwork {
                 columnVector[0] = float.Parse(data[0]);
             }
             else {
-                columnVector[index] = 1;
+                columnVector[int.Parse(data[0])] = 1;
             }
 
             return new Matrix(columnVector);
