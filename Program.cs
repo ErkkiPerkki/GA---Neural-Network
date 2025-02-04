@@ -20,27 +20,31 @@ namespace NeuralNetwork
             string trainingDataPath = $@"{root}\TrainingData\mnist_train.csv";
             Debug.Assert(File.Exists(trainingDataPath), $"Couldn't find training data in path [{trainingDataPath}]");
 
-            Network testNetwork = new Network(784, 100, 10);
-            TrainingData data = new TrainingData(trainingDataPath);
-            testNetwork.Train(data, 0.05f, 3);
+            bool training = false;
 
-            // Test
-            //string networkDataPath = $@"{root}\NetworkData\NetworkData.json";
-            //Network loadedNetwork = new Network(networkDataPath);
-            //TrainingData testData = new TrainingData($@"{root}\TrainingData\mnist_test.csv");
+            if (training) {
+                Network testNetwork = new Network(784, 100, 10);
+                TrainingData data = new TrainingData(trainingDataPath);
+                testNetwork.Train(data, 0.01f, 1);
+            }
+            else {
+                string networkDataPath = $@"{root}\NetworkData\FirstWorkingModel.json";
+                Network loadedNetwork = new Network(networkDataPath);
+                TrainingData testData = new TrainingData($@"{root}\TrainingData\mnist_test.csv");
 
-            //float accuracySum = 0;
-            //for (uint i = 0; i < testData.Size.Rows; i++) {
-            //    Console.Clear();
+                float accuracySum = 0;
+                for (uint i = 0; i < testData.Size.Rows; i++) {
+                    Console.Clear();
 
-            //    Matrix result = loadedNetwork.FeedForward(testData.PackToColumnVector(i));
-            //    accuracySum += FormatNetworkOutput(result);
-            //    Console.WriteLine(accuracySum / i);
+                    Matrix result = loadedNetwork.FeedForward(testData.PackToColumnVector(i));
+                    accuracySum += FormatNetworkOutput(result);
+                    Console.WriteLine(accuracySum / i);
 
-            //    testData.DrawImage(i);
+                    testData.DrawImage(i);
 
-            //    Thread.Sleep(25);
-            //}
+                    Thread.Sleep(3000);
+                }
+            }
 
             Console.ReadKey();
         }

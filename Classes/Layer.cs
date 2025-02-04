@@ -57,7 +57,7 @@
 
         public void ConnectLayer(Layer nextLayer) {    
             _Weights = new Matrix(nextLayer._Size, _Size);
-            _Weights.PopulateWithRandom(-1, 1);
+            _Weights.PopulateWithRandom(-0.1f, 0.1f);
         }
     }
 }

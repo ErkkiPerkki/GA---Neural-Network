@@ -108,8 +108,21 @@ namespace NeuralNetwork
                 }
             }
 
-            Matrix matrixSum = new Matrix(sum);
-            return matrixSum;
+            return new Matrix(sum);
+        }
+
+        public static Matrix operator -(float left, Matrix right) {
+            float[][] sum = new float[right.Rows][];
+
+            for (uint i = 0; i < right.Rows; i++) {
+                sum[i] = new float[right.Columns];
+
+                for (uint j = 0; j < right.Columns; j++) {
+                    sum[i][j] = left - right.Elements[i][j];
+                }
+            }
+
+            return new Matrix(sum);
         }
 
         public static Matrix operator *(Matrix left, float right) {
@@ -134,6 +147,20 @@ namespace NeuralNetwork
 
                 for (uint j = 0; j < right.Columns; j++) {
                     result[i][j] = right.Elements[i][j] * left;
+                }
+            }
+
+            return new Matrix(result);
+        }
+
+        public static Matrix operator -(Matrix matrix) {
+            float[][] result = new float[matrix.Rows][];
+
+            for (int row = 0; row < matrix.Rows; row++) {
+                result[row] = new float[matrix.Columns];
+
+                for (int column = 0; column < matrix.Columns; column++) {
+                    result[row][column] = -matrix.Elements[row][column];
                 }
             }
 
@@ -245,6 +272,30 @@ namespace NeuralNetwork
             }
 
             return (largestValue, largestValueRow, largestValueColumn);
+        }
+
+        public Matrix Abs() {
+            Matrix result = new Matrix(_Elements);
+
+            for (int row = 0; row < _Rows; row++) {
+                for (int column = 0; column < _Columns; column++) {
+                    result._Elements[row][column] = Math.Abs(_Elements[row][column]);
+                }
+            }
+
+            return result;
+        }
+
+        public Matrix Log() {
+            Matrix result = new Matrix(_Elements);
+
+            for (int row = 0; row < _Rows; row++) {
+                for (int column = 0; column < _Columns; column++) {
+                    result._Elements[row][column] = (float)Math.Log(_Elements[row][column]);
+                }
+            }
+
+            return result;
         }
     }
 }

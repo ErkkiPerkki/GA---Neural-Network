@@ -135,6 +135,34 @@ namespace NeuralNetwork
             return new Matrix(result);
         }
 
+        public static Matrix CrossEntropy(Matrix networkOutput, Matrix expectedOutput) {
+            float[] loss = new float[networkOutput.Rows];
+            float epsilon = 1e-12f;
+
+            for (int i = 0; i < networkOutput.Rows; i++) {
+                float output = networkOutput.Elements[i][0];
+                float expected = expectedOutput.Elements[i][0];
+                
+                float p = Math.Min(Math.Max(output, epsilon), 1 - epsilon);
+                loss[i] = (float)-(expected * Math.Log(p) + (1 - expected) * Math.Log(1 - p));
+            }
+
+            return new Matrix(loss);
+        }
+
+        public static Matrix CrossEntropyDerivative(Matrix networkOutput, Matrix expectedOutput) {
+            float[] derivative = new float[networkOutput.Rows];
+
+            for (int row = 0; row < networkOutput.Rows; row++) {
+                float output = (float)Math.Max(networkOutput.Elements[row][0], 1e-12);
+                float expected = expectedOutput.Elements[row][0];
+
+                derivative[row] = -expected / output;
+            }
+
+            return new Matrix(derivative);
+        }
+
         public Matrix FeedForward(Matrix inputs) {
             if (inputs.Rows != _Layers[0].Neurons.Rows)
                 throw new Exception("Input matrix must match the size of the input layer");
@@ -161,11 +189,13 @@ namespace NeuralNetwork
             Layer outputLayer = _Layers[layersAmount - 1];
             Layer lastHiddenLayer = _Layers[layersAmount - 2];
 
-            Matrix error = expectedOutput - outputLayer.Neurons;
-            Matrix outputDerivative = error.ElementWiseMultiplication(SigmoidDerivative(outputLayer.UnactivatedNeurons));
+            // Derivative of the Cross-Entropy loss function with respect to the network output
+            // Turns out to be output - expected since I'm using sigmoid as the activation function
+            Matrix error = outputLayer.Neurons - expectedOutput; //CrossEntropyDerivative(outputLayer.Neurons, expectedOutput);
+            Matrix outputDerivative = error; //error.ElementWiseMultiplication(SigmoidDerivative(outputLayer.UnactivatedNeurons));
 
-            lastHiddenLayer.Weights += learningRate * (outputDerivative * lastHiddenLayer.Neurons.Transpose());
-            outputLayer.Biases += learningRate * outputDerivative;
+            lastHiddenLayer.Weights -= learningRate * (outputDerivative * lastHiddenLayer.Neurons.Transpose());
+            outputLayer.Biases -= learningRate * outputDerivative;
 
             // Backpropagation
             for (int i = layersAmount - 2; i > 0; i--) {
@@ -175,13 +205,15 @@ namespace NeuralNetwork
                 Matrix hiddenError = currentLayer.Weights.Transpose() * outputDerivative;
                 Matrix hiddenDerivative = hiddenError.ElementWiseMultiplication(SigmoidDerivative(currentLayer.UnactivatedNeurons));
 
-                previousLayer.Weights += learningRate * (hiddenDerivative * previousLayer.Neurons.Transpose());
-                currentLayer.Biases += learningRate * hiddenDerivative;
+                previousLayer.Weights -= learningRate * (hiddenDerivative * previousLayer.Neurons.Transpose());
+                currentLayer.Biases -= learningRate * hiddenDerivative;
 
                 outputDerivative = hiddenDerivative;
             }
 
-            return error.GetLargestValue().Value;
+            Matrix crossEntropyLoss = CrossEntropy(outputLayer.Neurons, expectedOutput);
+            float loss = crossEntropyLoss.Sum() / crossEntropyLoss.Rows;
+            return loss;
         }
 
         public void SaveToFile() {
@@ -196,13 +228,12 @@ namespace NeuralNetwork
 
         public void Train(TrainingData data, float learningRate, int epochs) {
             for (int epoch = 0; epoch < epochs; epoch++) {
-                
                 for (uint i = 0; i < data.Size.Rows; i++) {
-                    Matrix inputData = data.PackToColumnVector(i);
+                    Matrix inputData = data.PackToColumnVector(i, true);
                     Matrix correctAnswer = data.GetCorrectAnswer(i, _Layers[_Layers.Length - 1].Size);
 
                     FeedForward(inputData);
-                    float networkError = Backpropogate(inputData, correctAnswer, learningRate);
+                    float error = Backpropogate(inputData, correctAnswer, learningRate);
 
                     Console.SetCursorPosition(0, 0);
                     Utility.ColoredPrint($"Epoch: {epoch + 1} / {epochs}    ", ConsoleColor.DarkCyan);
@@ -211,8 +242,7 @@ namespace NeuralNetwork
                     Utility.ColoredPrint($"Progress: {100 * i / data.Size.Rows}%   ", ConsoleColor.Green);
 
                     Console.SetCursorPosition(0, 2);
-                    Utility.ColoredPrint($"Network Error: [{networkError}]                    ", ConsoleColor.Red);
-                    //Console.Write("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+                    Utility.ColoredPrint($"Network Error: [{error}]                ", ConsoleColor.Red);
                 }
             }
 
